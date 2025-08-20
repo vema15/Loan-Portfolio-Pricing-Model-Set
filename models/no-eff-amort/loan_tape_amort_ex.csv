@@ -1,2 +1,4 @@
 Loan ID,Original Loan Amount,Interest Rate,Original Term,Funding Date,UPB,Payments
 xxx01,100000,.10,120,01/01/2025,96000,4
+xxx02,150000,.15,240,03/01/2025,130000,10
+xxx03,200000,.12,120,04/01/2025,178000, 12
