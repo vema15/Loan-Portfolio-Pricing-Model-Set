@@ -26,8 +26,5 @@ UPDATES
     Added the no-effect-amortizing Pricing Model
     Notes:
     Currently working on how to optimize loading times
-<<<<<<< HEAD
     0.0.1.1
         Decreased run time by 50% by optimizing the increment used in the IRR to target yield goal seek. Need to optimize IRR goal seek next
-=======
->>>>>>> 8977d26c95ea69cd0af78f71667e948ccf41eba5
