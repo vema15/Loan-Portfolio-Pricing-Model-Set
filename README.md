@@ -1,6 +1,7 @@
 # Loan-Portfolio-Pricing-Model-Set
 
 ABOUT
+
 The Loan Portfolio Pricing Model Set is (will be) as suite of pricing models for a variety of loan types. Each model will evaluate a raw loan tape and output the portfolio's weighted average price (over)under par and its associated dollar price. Each model will consider the intricacies of the loan types' legal, financial, and economic traits in order to produce the most accurate projections.
 
 **DISCLAIMER: None of the outputs produced by these models should be used as financial advice. Please be advised that past results are not indicative of future performance***
@@ -25,5 +26,8 @@ UPDATES
     Added the no-effect-amortizing Pricing Model
     Notes:
     Currently working on how to optimize loading times
+<<<<<<< HEAD
     0.0.1.1
         Decreased run time by 50% by optimizing the increment used in the IRR to target yield goal seek. Need to optimize IRR goal seek next
+=======
+>>>>>>> 8977d26c95ea69cd0af78f71667e948ccf41eba5
