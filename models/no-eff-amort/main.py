@@ -1,7 +1,18 @@
 import pandas as pd
 import datetime
+import math
 
+start_time = datetime.datetime.now()
+
+incr_list = [
+     1,
+     0.1,
+     0.01,
+     0.001,
+     0.0001
+]
 # XIRR function is based on the IRR mathematic formula
+
 def xirr_cal(dyn_cf_list: list):
     temp_irr_list = []
     temp_irr = .0001
@@ -9,25 +20,27 @@ def xirr_cal(dyn_cf_list: list):
         disc_cfs = []
         per = 0
         for cash_flow in dyn_cf_list:
-            if per == 1:
+            if per == 0:
                 disc_cfs.append(cash_flow[1])
             else:
                 disc_cf = cash_flow[1] / (1 + temp_irr/12)**per
                 disc_cfs.append(disc_cf)
             per += 1
+        incr_val = .0001
         if disc_cfs[0] + sum(disc_cfs[1:-1]) > 1:
-            temp_irr += 0.0001
-            temp_add_irr= temp_irr + .0001
+            temp_irr += incr_val
+            temp_add_irr= temp_irr + incr_val
             temp_irr_list.append(temp_add_irr)  
         elif disc_cfs[0] + sum(disc_cfs[1:-1]) < 1 and len(temp_irr_list) >2:
-            temp_irr -= .0001
-            temp_sub_irr = temp_irr - .0001
+            temp_irr -= incr_val
+            temp_sub_irr = temp_irr - incr_val
             temp_irr_list.append(temp_sub_irr)
         else:
-            print(temp_irr)
+            return temp_irr
         if len(temp_irr_list) > 30 and temp_irr_list[-1] == temp_irr_list[-3]:
             return temp_irr
             break
+        
             
 
 test_mode = True
@@ -97,8 +110,7 @@ for index, row in tape_df.iterrows():
             break
     port_cf[row[col_names["Loan ID"]]] = loan_cash_flows
 
-#Enter the intended deal yield
-targ_yield = float(input("Input target yield as decimal: "))
+targ_yield = .1
 loan_prices = {}
 print("====LOADING====")
 for loan_id, cash_flows in port_cf.items():
@@ -108,13 +120,22 @@ for loan_id, cash_flows in port_cf.items():
 
     irr_tracker = []
     dyn_cf = cash_flows[0:-1]
-    # Custom IRR function from scratch
+    
     for i in range(10000):
+
+        price_incr_val = 0.001
+        count = 0
+        while count < len(incr_list):
+            if abs(irr-targ_yield)/incr_list[count] >= 1: 
+                price_incr_val = incr_list[count]
+                break
+            count +=1
+
         irr = xirr_cal(dyn_cf)
         if irr < targ_yield:
-            dyn_cf[0][1] *= (1-0.0001)
+            dyn_cf[0][1] *= (1-price_incr_val)
         elif irr > targ_yield:
-            dyn_cf[0][1] *= (1+0.0001)
+            dyn_cf[0][1] *= (1+price_incr_val)
         if len(irr_tracker)>= 3 and (int(irr_tracker[-1]) == int(irr_tracker[-3])):
             amt_paid = -dyn_cf[0][1]
             moe = (float(targ_yield) - float(irr))
@@ -136,10 +157,10 @@ for key, value in loan_prices.items():
 w_avg_price = (sumprod/sum)*100
 port_price = sumprod
 print(f'\nWeighted Average Price - {w_avg_price}\nTotal Portfolio Price - {port_price}')
-    
         
    
-
+end_time = datetime.datetime.now()
+print(end_time-start_time)
 
 
     
