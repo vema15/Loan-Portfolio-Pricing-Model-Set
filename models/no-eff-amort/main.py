@@ -27,11 +27,11 @@ def xirr_cal(dyn_cf_list: list):
                 disc_cfs.append(disc_cf)
             per += 1
         incr_val = .0001
-        if disc_cfs[0] + sum(disc_cfs[1:-1]) > 1:
+        if disc_cfs[0] + sum(disc_cfs[1:-1]) > 0:
             temp_irr += incr_val
             temp_add_irr= temp_irr + incr_val
             temp_irr_list.append(temp_add_irr)  
-        elif disc_cfs[0] + sum(disc_cfs[1:-1]) < 1 and len(temp_irr_list) >2:
+        elif disc_cfs[0] + sum(disc_cfs[1:-1]) < 0 and len(temp_irr_list) >2:
             temp_irr -= incr_val
             temp_sub_irr = temp_irr - incr_val
             temp_irr_list.append(temp_sub_irr)
