@@ -28,3 +28,7 @@ UPDATES
     Currently working on how to optimize loading times
     0.0.1.1
         Decreased run time by 50% by optimizing the increment used in the IRR to target yield goal seek. Need to optimize IRR goal seek next
+    0.0.1.2
+        Added CPR historical data aggregation tool for benchmarking using Freddie Mac pool-wide data (through 2023).
+        Source: https://capitalmarkets.freddiemac.com/mbs/daily-prepayment-report
+
